@@ -73,6 +73,9 @@ list: ##@help List all targets and their commands
 version: ##@help Log the current version
 	@echo "v$(CURRENT_VERSION_PATCH)"
 
+update-make: ##@help Update the .make submodule to the latest version
+	git submodule update --remote .make
+
 # -- Release --
 .PHONY: tag patch minor major
 
