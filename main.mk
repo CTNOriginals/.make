@@ -7,29 +7,22 @@ MAKE_DIR		   := $(dir $(lastword $(MAKEFILE_LIST)))
 DESCRIBE           := $(shell git describe --match "v*" --always --tags)
 DESCRIBE_PARTS     := $(subst -, ,$(DESCRIBE))
 
-VERSION_TAG        := $(word 1,$(DESCRIBE_PARTS))
-COMMITS_SINCE_TAG  := $(word 2,$(DESCRIBE_PARTS))
+LAST_TAG           := $(word 1,$(DESCRIBE_PARTS))
+COMMITS_SINCE_TAG  := $(or $(word 2,$(DESCRIBE_PARTS)),0)
 
-VERSION            := $(subst v,,$(VERSION_TAG))
-VERSION_PARTS      := $(subst ., ,$(VERSION))
+LAST_VERSION       := $(subst v,,$(LAST_TAG))
+LAST_VERSION_PARTS := $(subst ., ,$(LAST_VERSION))
 
-MAJOR              := $(word 1,$(VERSION_PARTS))
-MINOR              := $(word 2,$(VERSION_PARTS))
-PATCH              := $(word 3,$(VERSION_PARTS))
+MAJOR              := $(word 1,$(LAST_VERSION_PARTS))
+MINOR              := $(word 2,$(LAST_VERSION_PARTS))
+PATCH              := $(word 3,$(LAST_VERSION_PARTS))
 
 NEXT_MAJOR         := $(shell echo $$(($(MAJOR)+1)))
 NEXT_MINOR         := $(shell echo $$(($(MINOR)+1)))
-NEXT_PATCH          = $(shell echo $$(($(PATCH)+$(COMMITS_SINCE_TAG))))
+NEXT_PATCH         := $(shell echo $$(($(PATCH)+$(COMMITS_SINCE_TAG))))
 
-ifeq ($(strip $(COMMITS_SINCE_TAG)),)
-CURRENT_VERSION_PATCH := $(MAJOR).$(MINOR).$(PATCH)
-CURRENT_VERSION_MINOR := $(CURRENT_VERSION_PATCH)
-CURRENT_VERSION_MAJOR := $(CURRENT_VERSION_PATCH)
-else
-CURRENT_VERSION_PATCH := $(MAJOR).$(MINOR).$(NEXT_PATCH)
-CURRENT_VERSION_MINOR := $(MAJOR).$(NEXT_MINOR).0
-CURRENT_VERSION_MAJOR := $(NEXT_MAJOR).0.0
-endif
+# The tag version on a tag, else the version a patch release would get.
+VERSION            := $(MAJOR).$(MINOR).$(NEXT_PATCH)
 
 .DEFAULT_GOAL := help
 
