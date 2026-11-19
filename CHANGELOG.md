@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the version math failed. They now count from `v0.0.0`.
 - A pre-release tag like `v1.0.0-rc1` broke the version variables. Tags with a
   `-` are now skipped.
+- `MAKE` was overridden to quiet sub-makes, which turned off the jobserver for
+  `-j` and ignored the make binary in use. `--no-print-directory` is now set
+  through `MAKEFLAGS` instead.
 
 ## [0.3.0] - 2026-11-19
 

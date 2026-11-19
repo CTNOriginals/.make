@@ -1,7 +1,7 @@
 # Makefile template: https://gist.github.com/grihabor/4a750b9d82c9aa55d5276bd5503829be
 # source: https://codeberg.org/CTNOriginals/colorizer/src/branch/main/Makefile
 
-MAKE               := make --no-print-directory
+MAKEFLAGS          += --no-print-directory
 MAKE_DIR		   := $(dir $(lastword $(MAKEFILE_LIST)))
 
 # Pre-release tags (v1.0.0-rc1) are skipped, their "-" would break the split.
