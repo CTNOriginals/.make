@@ -1,8 +1,5 @@
 .PHONY: tag patch minor major
 
-tag: ##@versioning Push tags
-	git push --tags
-
 patch: ##@versioning Create and add a patch tag (vx.x.+commits)
 	git tag "v$(MAJOR).$(MINOR).$(NEXT_PATCH)"
 
