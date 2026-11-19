@@ -4,10 +4,11 @@
 MAKE               := make --no-print-directory
 MAKE_DIR		   := $(dir $(lastword $(MAKEFILE_LIST)))
 
-DESCRIBE           := $(shell git describe --match "v*" --always --tags)
+DESCRIBE           := $(shell git describe --match "v*" --tags 2>/dev/null)
 DESCRIBE_PARTS     := $(subst -, ,$(DESCRIBE))
 
-LAST_TAG           := $(word 1,$(DESCRIBE_PARTS))
+# Without a v* tag (or outside a git repo) versions count from v0.0.0.
+LAST_TAG           := $(or $(word 1,$(DESCRIBE_PARTS)),v0.0.0)
 COMMITS_SINCE_TAG  := $(or $(word 2,$(DESCRIBE_PARTS)),0)
 
 LAST_VERSION       := $(subst v,,$(LAST_TAG))

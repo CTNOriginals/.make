@@ -58,18 +58,20 @@ The versioning targets only create the tag locally. Push it with
 
 ## Versioning
 
-Versions come from the latest `v*` tag reached by `git describe`, so the
-project needs at least one tag such as `v0.0.1`. These variables are
-available in your own targets:
+Versions come from the latest `v*` tag. Without one, it works as if the
+latest tag is `v0.0.0` with no commits since it.
 
-| Variable            | Example (`v0.1.4`, 3 commits later) | Meaning                          |
-|---------------------|-------------------------------------|----------------------------------|
-| `LAST_TAG`          | `v0.1.4`                            | The latest version tag           |
-| `LAST_VERSION`      | `0.1.4`                             | `LAST_TAG` without the `v`       |
-| `COMMITS_SINCE_TAG` | `3`                                 | Commits since the tag, `0` on it |
-| `MAJOR`, `MINOR`, `PATCH` | `0`, `1`, `4`                 | The parts of `LAST_VERSION`      |
-| `NEXT_MAJOR`, `NEXT_MINOR`, `NEXT_PATCH` | `1`, `2`, `7`  | The parts a release would bump to |
-| `VERSION`           | `0.1.7`                             | The version a patch release would get |
+These variables are available in your own targets. The examples are for
+`v0.1.4` with 3 commits since it:
+
+| Variable                                 | Example       | Meaning                               |
+|------------------------------------------|---------------|---------------------------------------|
+| `LAST_TAG`                               | `v0.1.4`      | The latest version tag                |
+| `LAST_VERSION`                           | `0.1.4`       | `LAST_TAG` without the `v`            |
+| `COMMITS_SINCE_TAG`                      | `3`           | Commits since the tag                 |
+| `MAJOR`, `MINOR`, `PATCH`                | `0`, `1`, `4` | The parts of `LAST_VERSION`           |
+| `NEXT_MAJOR`, `NEXT_MINOR`, `NEXT_PATCH` | `1`, `2`, `7` | The parts a release would bump to     |
+| `VERSION`                                | `0.1.7`       | The version a patch release would get |
 
 Run `make vars` to see the values for your project.
 

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- In a repo without a `v*` tag, the version variables held a commit hash and
+  the version math failed. They now count from `v0.0.0`.
+
 ## [0.3.0] - 2026-11-19
 
 ### Added
