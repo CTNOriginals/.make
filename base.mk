@@ -2,6 +2,7 @@
 # source: https://codeberg.org/CTNOriginals/colorizer/src/branch/main/Makefile
 
 MAKE               := make --no-print-directory
+MAKE_DIR		   := $(dir $(lastword $(MAKEFILE_LIST)))
 
 DESCRIBE           := $(shell git describe --match "v*" --always --tags)
 DESCRIBE_PARTS     := $(subst -, ,$(DESCRIBE))
@@ -32,7 +33,7 @@ endif
 
 .DEFAULT_GOAL := help
 
-include info.mk
-include ./versioning.mk
-include ./git.mk
+include $(MAKE_DIR)info.mk
+include $(MAKE_DIR)versioning.mk
+include $(MAKE_DIR)git.mk
 
