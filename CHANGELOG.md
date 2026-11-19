@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.7] - 2026-11-19
+
 ### Fixed
 
 - In a repo without a `v*` tag, the version variables held a commit hash and
@@ -88,7 +90,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `make patch`, `make minor`, `make major` and `make tag` for version tags.
 - `make update-make` to update the `.make` submodule.
 
-[Unreleased]: https://github.com/CTNOriginals/.make/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/CTNOriginals/.make/compare/v0.3.7...HEAD
+[0.3.7]: https://github.com/CTNOriginals/.make/compare/v0.3.0...v0.3.7
 [0.3.0]: https://github.com/CTNOriginals/.make/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/CTNOriginals/.make/compare/v0.1.4...v0.2.0
 [0.1.4]: https://github.com/CTNOriginals/.make/compare/v0.1.0...v0.1.4
