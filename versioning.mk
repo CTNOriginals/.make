@@ -1,4 +1,4 @@
-.PHONY: tag patch minor major
+.PHONY: patch minor major
 
 patch: ##@versioning Create and add a patch tag (vx.x.+commits)
 	git tag "v$(MAJOR).$(MINOR).$(NEXT_PATCH)"
