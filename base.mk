@@ -31,62 +31,8 @@ CURRENT_VERSION_MAJOR := $(NEXT_MAJOR).0.0
 endif
 
 .DEFAULT_GOAL := help
-# --- Version commands ---
-.PHONY: help list
 
-help: ##@help Display all commands and descriptions
-	@awk 'BEGIN {FS = ":.*##@"; printf "\nUsage:\n  make <target>\n"} \
-	/^[.a-zA-Z0-9_-]+:.*?##@/ { \
-		split($$2, parts, " "); \
-		section = parts[1]; \
-		description = substr($$2, length(section) + 2); \
-		sections[section] = sections[section] sprintf("  \033[36m%-15s\033[0m %s\n", $$1, description); \
-	} \
-	END { \
-		for (section in sections) { \
-			printf "\n\033[1m%s\033[0m\n", section; \
-			printf "%s", sections[section]; \
-		} \
-	}' $(MAKEFILE_LIST)
+include info.mk
+include ./versioning.mk
+include ./git.mk
 
-list: ##@help List all targets and their commands
-	@awk 'BEGIN { \
-		target = ""; cmds = ""; \
-	} \
-	/^[.a-zA-Z0-9_-]+:/ && !/^\.PHONY/ { \
-		if (target != "" && cmds != "") { \
-			printf "  \033[36m%-15s\033[0m\n%s\n", target, cmds; \
-		} \
-		split($$0, a, ":"); \
-		target = (a[1] == "help" || a[1] == "list") ? "" : a[1]; \
-		cmds = ""; \
-	} \
-	/^\t/ && target != "" { \
-		cmds = cmds "    " substr($$0, 2) "\n"; \
-	} \
-	END { \
-		if (target != "" && cmds != "") { \
-			printf "  \033[36m%-15s\033[0m\n%s\n", target, cmds; \
-		} \
-	}' $(MAKEFILE_LIST)
-
-version: ##@help Log the current version
-	@echo "v$(CURRENT_VERSION_PATCH)"
-
-update-make: ##@help Update the .make submodule to the latest version
-	git submodule update --remote .make
-
-# -- Release --
-.PHONY: tag patch minor major
-
-tag: ##@versioning Push tags
-	git push --tags
-
-patch: ##@versioning Create and add a patch tag (vx.x.+commits)
-	git tag "v$(MAJOR).$(MINOR).$(NEXT_PATCH)"
-
-minor: ##@versioning Create and add a minor tag (vx.+1.x)
-	git tag "v$(MAJOR).$(NEXT_MINOR).0"
-
-major: ##@versioning Create and add a major tag (v+1.x.x)
-	git tag "v$(NEXT_MAJOR).0.0"
