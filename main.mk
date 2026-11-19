@@ -34,6 +34,6 @@ endif
 .DEFAULT_GOAL := help
 
 include $(MAKE_DIR)info.mk
-include $(MAKE_DIR)versioning.mk
 include $(MAKE_DIR)git.mk
+include $(MAKE_DIR)versioning.mk
 
