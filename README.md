@@ -58,7 +58,7 @@ The versioning targets only create the tag locally. Push it with
 
 ## Versioning
 
-Versions come from the latest `v*` tag. Without one, it works as if the
+Versions come from the latest `v*` tag. Without a tag, it works as if the
 latest tag is `v0.0.0` with no commits since it.
 
 These variables are available in your own targets. The examples are for
@@ -74,6 +74,14 @@ These variables are available in your own targets. The examples are for
 | `VERSION`                                | `0.1.7`       | The version a patch release would get |
 
 Run `make vars` to see the values for your project.
+
+### Pre-release tags
+
+Tags with a `-`, like `v1.0.0-rc1`, are skipped: the variables come from the
+latest tag without one. The versioning targets do not create pre-release
+tags and do not take them into account. For example, with `v0.1.0` and later
+`v0.2.0-rc1`, `make minor` tags `v0.2.0`, and `make patch` tags `v0.1.x`,
+which is lower than the pre-release.
 
 ## Requirements
 

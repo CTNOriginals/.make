@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - In a repo without a `v*` tag, the version variables held a commit hash and
   the version math failed. They now count from `v0.0.0`.
+- A pre-release tag like `v1.0.0-rc1` broke the version variables. Tags with a
+  `-` are now skipped.
 
 ## [0.3.0] - 2026-11-19
 

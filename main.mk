@@ -4,7 +4,8 @@
 MAKE               := make --no-print-directory
 MAKE_DIR		   := $(dir $(lastword $(MAKEFILE_LIST)))
 
-DESCRIBE           := $(shell git describe --match "v*" --tags 2>/dev/null)
+# Pre-release tags (v1.0.0-rc1) are skipped, their "-" would break the split.
+DESCRIBE           := $(shell git describe --match "v*" --exclude "*-*" --tags 2>/dev/null)
 DESCRIBE_PARTS     := $(subst -, ,$(DESCRIBE))
 
 # Without a v* tag (or outside a git repo) versions count from v0.0.0.
